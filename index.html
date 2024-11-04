@@ -49,25 +49,48 @@
 <body>
 
     <h1>Menú La Esquina Tradicional</h1>
-    <div class="menu-container">
-        <!-- Puedes duplicar estas secciones para agregar más platillos -->
-        <div class="menu-item">
-            <h2>Seco de Pollo</h2>
-            <p>Delicioso seco de pollo con arroz y menestra.</p>
-            <p><strong>Precio:</strong> $5.00</p>
-        </div>
-        <div class="menu-item">
-            <h2>Encebollado</h2>
-            <p>Encebollado tradicional ecuatoriano, ideal para la resaca.</p>
-            <p><strong>Precio:</strong> $4.50</p>
-        </div>
-        <div class="menu-item">
-            <h2>Ceviche de Camarón</h2>
-            <p>Fresco ceviche de camarón con limón y cilantro.</p>
-            <p><strong>Precio:</strong> $6.00</p>
-        </div>
-        <!-- Agrega más items del menú aquí -->
+    
+    <div class="menu-container" id="menu">
+        <!-- El menú se cargará aquí automáticamente -->
     </div>
+
+    <script>
+        async function loadMenu() {
+            try {
+                // Leer el archivo menu-data.txt desde el repositorio
+                const response = await fetch('menu-data.txt');
+                const data = await response.text();
+
+                // Dividir los elementos del menú
+                const items = data.split('\n\n');
+                const menuContainer = document.getElementById('menu');
+
+                // Iterar sobre cada ítem y agregarlo al HTML
+                items.forEach(item => {
+                    const lines = item.split('\n');
+                    const name = lines[0].replace('Plato: ', '');
+                    const description = lines[1].replace('Descripción: ', '');
+                    const price = lines[2].replace('Precio: ', '');
+
+                    // Crear elementos HTML para cada ítem
+                    const dishItem = document.createElement('div');
+                    dishItem.classList.add('menu-item');
+                    dishItem.innerHTML = `
+                        <h2>${name}</h2>
+                        <p>${description}</p>
+                        <p><strong>Precio:</strong> ${price}</p>
+                    `;
+                    
+                    menuContainer.appendChild(dishItem);
+                });
+            } catch (error) {
+                console.error("Error al cargar el menú:", error);
+            }
+        }
+
+        // Llamar a la función para cargar el menú al cargar la página
+        loadMenu();
+    </script>
 
 </body>
 </html>
