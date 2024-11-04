@@ -1,0 +1,7 @@
+Plato: Seco de Pollo
+Descripción: Un delicioso seco de pollo acompañado de arroz, aguacate y maduro.
+Precio: $5.00
+
+Plato: Ceviche de Camarón
+Descripción: Ceviche fresco con camarones, acompañado de chifles.
+Precio: $6.50
